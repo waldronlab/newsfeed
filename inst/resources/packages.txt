@@ -1,6 +1,0 @@
-MultiAssayExperiment
-curatedMetagenomicData
-TCGAutils
-RTCGAToolbox
-EnrichmentBrowser
-HMP16SData
