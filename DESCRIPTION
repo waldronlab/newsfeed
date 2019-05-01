@@ -1,11 +1,8 @@
 Package: newsfeed
 Title: Compilies NEWS files from different packages
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Marcel",
-           family = "Ramos",
-           role = c("aut", "cre"),
-           email = "marcel.ramos@roswellpark.org")
+Version: 0.0.0.9002
+Authors@R: person("Marcel", "Ramos", role = c("aut", "cre"),
+    email = "marcel.ramos@roswellpark.org")
 Description: The package takes NEWS files from other packages and puts them
   into a single file
 License: Artistic-2.0
