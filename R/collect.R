@@ -11,16 +11,18 @@
     newsfile
 }
 
-collect <- function(packageList, outFile = tempfile()) {
-    packageList <- setNames(packageList, packageList)
-    listNEWS <- lapply(packageList, function(pkg) {
+collect <-
+    function(packages, out = tempfile(), vpattern = "Changes in version")
+{
+    packages <- setNames(packages, packages)
+    listNEWS <- lapply(packages, function(pkg) {
         readLines(.findNEWSfile(pkg))
     })
 
     indx <- lapply(listNEWS, function(pkgLines) {
         vers <-
             head(
-                grep("Changes in version", ignore.case = TRUE, pkgLines),
+                grep(vpattern, ignore.case = TRUE, pkgLines),
             2L)
         if (identical(length(vers), 1L))
             length(pkgLines)
@@ -28,6 +30,6 @@ collect <- function(packageList, outFile = tempfile()) {
             vers[[2L]] - 1L
     })
     newslines <- mapply(function(x, y) x[seq_len(y)], x = listNEWS, y = indx)
-    writeLines(text = unlist(newslines), con = file(outFile))
+    writeLines(text = unlist(newslines), con = file(out))
 }
 
