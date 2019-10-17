@@ -11,12 +11,29 @@
     newsfile
 }
 
+#' Compile NEWS files from several packages
+#'
+#' This package will take the first chunk of a NEWS file and
+#' return it as a character vector
+#'
+#' @param packages A character vector of packages installed on the system
+#' @param vpattern The 'grep' input for searching the versioning line in the
+#'   NEWS files. This usually starts with 'Changes in version' but may differ.
+#'
+#' @example
+#'
+#' collect("newsfeed")
+#'
+#' @export
 collect <-
-    function(packages, out = tempfile(), vpattern = "Changes in version")
+    function(packages, vpattern = "Changes in version")
 {
     packages <- setNames(packages, packages)
     listNEWS <- lapply(packages, function(pkg) {
-        readLines(.findNEWSfile(pkg))
+        newsout <- readLines(.findNEWSfile(pkg))
+        if (!grepl(pkg, newsout[1]))
+            newsout <- c(pkg, paste0(rep("-", 64), collapse = ""), "", newsout)
+        newsout
     })
 
     indx <- lapply(listNEWS, function(pkgLines) {
@@ -29,7 +46,6 @@ collect <-
         else
             vers[[2L]] - 1L
     })
-    newslines <- mapply(function(x, y) x[seq_len(y)], x = listNEWS, y = indx)
-    writeLines(text = unlist(newslines), con = file(out))
+    unname(unlist(Map(function(x, y) x[seq_len(y)], x = listNEWS, y = indx)))
 }
 
