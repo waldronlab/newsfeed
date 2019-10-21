@@ -1,12 +1,13 @@
 .findNEWSfile <- function(pkg) {
     pkgLoc <- system.file(package = pkg)
-    newsfile <- dir(pkgLoc, pattern = "^NEWS", recursive = TRUE, full.names = TRUE)
+    newsfile <- list.files(pkgLoc, pattern = "^NEWS", recursive = TRUE,
+        full.names = TRUE)
     if (length(newsfile) > 1) {
         allNEWS <- basename(newsfile) == "NEWS"
         if (identical(sum(allNEWS), 1L))
             newsfile <- newsfile[allNEWS]
         else
-            stop("Multiple matching NEWS files found")
+            stop("Multiple NEWS files found in package folder")
     }
     newsfile
 }
@@ -20,7 +21,7 @@
 #' @param vpattern The 'grep' input for searching the versioning line in the
 #'   NEWS files. This usually starts with 'Changes in version' but may differ.
 #'
-#' @example
+#' @examples
 #'
 #' collect("newsfeed")
 #'
@@ -30,10 +31,8 @@ collect <-
 {
     packages <- setNames(packages, packages)
     listNEWS <- lapply(packages, function(pkg) {
-        newsout <- readLines(.findNEWSfile(pkg))
-        if (!grepl(pkg, newsout[1]))
-            newsout <- c(pkg, paste0(rep("-", 64), collapse = ""), "", newsout)
-        newsout
+        nloc <- .findNEWSfile(pkg)
+        .addPkg2NEWS(pkg = pkg, nfile = nloc)
     })
 
     indx <- lapply(listNEWS, function(pkgLines) {

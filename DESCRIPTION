@@ -5,5 +5,8 @@ Authors@R: person("Marcel", "Ramos", role = c("aut", "cre"),
     email = "marcel.ramos@roswellpark.org")
 Description: The package takes NEWS files from other packages and puts them
   into a single file
+Depends: R (>= 3.6.0)
+Imports: devtools
 License: Artistic-2.0
 Encoding: UTF-8
+RoxygenNote: 6.1.1
