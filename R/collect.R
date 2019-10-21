@@ -2,13 +2,8 @@
     pkgLoc <- system.file(package = pkg)
     newsfile <- list.files(pkgLoc, pattern = "^NEWS", recursive = TRUE,
         full.names = TRUE)
-    if (length(newsfile) > 1) {
-        allNEWS <- basename(newsfile) == "NEWS"
-        if (identical(sum(allNEWS), 1L))
-            newsfile <- newsfile[allNEWS]
-        else
+    if (length(newsfile) > 1)
             stop("Multiple NEWS files found in package folder")
-    }
     newsfile
 }
 
