@@ -19,7 +19,7 @@ makeNEWSmd <- function(newsfile = "inst/NEWS", overwrite = FALSE) {
     if (file.exists("NEWS.md") && !overwrite) {
         stop("NEWS.md file exists")
     } else {
-        newslines <- readLines(nfile)
+        newslines <- readLines(newsfile)
         pkginnews <- grepl(pkg, newslines[1])
         if (pkginnews)
             stop("The NEWS file should not contain the package name;",
