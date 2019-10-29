@@ -20,8 +20,12 @@
 #' return it as a character vector
 #'
 #' @param packages A character vector of packages installed on the system
+#'
 #' @param vpattern The 'grep' input for searching the versioning line in the
-#'   NEWS files. This usually starts with 'Changes in version' but may differ.
+#'     NEWS files. This usually starts with 'Changes in version' but may differ.
+#'
+#' @param render logical(1) Whether to produce an HTML document for viewing
+#'     (default FALSE)
 #'
 #' @examples
 #'
@@ -29,7 +33,7 @@
 #'
 #' @export
 collect <-
-    function(packages, vpattern = "Changes in version")
+    function(packages, vpattern = "Changes in version", render = FALSE)
 {
     packages <- setNames(packages, packages)
     listNEWS <- lapply(packages, function(pkg) {
@@ -53,9 +57,18 @@ collect <-
     newsfeed <-  unname(unlist(
         Map(function(x, y) x[seq_len(y)], x = listNEWS, y = indx)
     ))
-    if (!requireNamespace("clipr", quietly = TRUE))
+
+    if (render) {
+        mdfile <- tempfile(fileext = ".md")
+        writeLines(text = newsfeed, con = mdfile)
+        if (!requireNamespace("rmarkdown", quietly = TRUE))
+            stop("Install 'rmarkdown' to use 'render=TRUE'")
+        htmlfile <- rmarkdown::render(mdfile, quiet = TRUE, encoding = "UTF-8")
+        browseURL(htmlfile)
+    }
+
+    if (!requireNamespace("clipr", quietly = TRUE) || !clipr::clipr_available())
         newsfeed
     else
         clipr::write_clip(newsfeed)
 }
-
