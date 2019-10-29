@@ -10,7 +10,8 @@
 .checkPkgName <- function(pkg, newstext) {
     in_first_line <- grepl(pkg, newstext[1])
     if (in_first_line)
-        stop("Bad formatting, remove package name from first line in NEWS")
+        stop("The NEWS* file should not contain the package name;",
+            "\n Test package with 'utils::news'")
 }
 
 #' Compile NEWS files from several packages

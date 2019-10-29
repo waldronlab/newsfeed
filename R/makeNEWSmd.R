@@ -21,11 +21,18 @@ makeNEWSmd <- function(newsfile = "inst/NEWS", overwrite = FALSE) {
     } else {
         pkg <- devtools::as.package(".")[["package"]]
         newslines <- readLines(newsfile)
-        pkginnews <- grepl(pkg, newslines[1])
-        if (pkginnews)
-            stop("The NEWS file should not contain the package name;",
-                "\n Test package with 'utils::news'")
+        .checkPkgName(pkg, newslines)
         writeLines(newslines, "NEWS.md")
+        resp <- readline(
+            paste0("Remove old news file at '", newsfile, "'? [y/n]: ")
+        )
+        resp <- substr(tolower(resp), 1, 1)
+        if (identical(resp, "y"))
+            file.remove(newsfile)
+        ignoredNews <- grepl("NEWS", readLines(".Rbuildignore"))
+        if (ignoredNews)
+            warning("Remove NEWS* file from '.Rbuildignore'")
     }
+    TRUE
 }
 
