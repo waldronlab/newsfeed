@@ -49,6 +49,13 @@ collect <-
         else
             vers[[2L]] - 1L
     })
-    unname(unlist(Map(function(x, y) x[seq_len(y)], x = listNEWS, y = indx)))
+
+    newsfeed <-  unname(unlist(
+        Map(function(x, y) x[seq_len(y)], x = listNEWS, y = indx)
+    ))
+    if (!requireNamespace("clipr", quietly = TRUE))
+        newsfeed
+    else
+        clipr::write_clip(newsfeed)
 }
 
