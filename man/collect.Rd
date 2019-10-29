@@ -4,13 +4,16 @@
 \alias{collect}
 \title{Compile NEWS files from several packages}
 \usage{
-collect(packages, vpattern = "Changes in version")
+collect(packages, vpattern = "Changes in version", render = FALSE)
 }
 \arguments{
 \item{packages}{A character vector of packages installed on the system}
 
 \item{vpattern}{The 'grep' input for searching the versioning line in the
 NEWS files. This usually starts with 'Changes in version' but may differ.}
+
+\item{render}{logical(1) Whether to produce an HTML document for viewing
+(default FALSE)}
 }
 \description{
 This package will take the first chunk of a NEWS file and
