@@ -36,7 +36,7 @@ collect <-
         nloc <- .findNEWSfile(pkg)
         newstext <- readLines(nloc)
         .checkPkgName(pkg, newstext)
-        c(pkg, paste0(rep("-", 64), collapse = ""), "", newstext)
+        c(pkg, paste0(rep("-", 64), collapse = ""), "", newstext, "")
     })
 
     indx <- lapply(listNEWS, function(pkgLines) {
