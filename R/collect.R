@@ -7,6 +7,12 @@
     newsfile
 }
 
+.checkPkgName <- function(pkg, newstext) {
+    in_first_line <- grepl(pkg, newstext[1])
+    if (in_first_line)
+        stop("Bad formatting, remove package name from first line in NEWS")
+}
+
 #' Compile NEWS files from several packages
 #'
 #' This package will take the first chunk of a NEWS file and
@@ -27,7 +33,9 @@ collect <-
     packages <- setNames(packages, packages)
     listNEWS <- lapply(packages, function(pkg) {
         nloc <- .findNEWSfile(pkg)
-        .addPkg2NEWS(pkg = pkg, nfile = nloc)
+        newstext <- readLines(nloc)
+        .checkPkgName(pkg, newstext)
+        c(pkg, paste0(rep("-", 64), collapse = ""), "", newstext)
     })
 
     indx <- lapply(listNEWS, function(pkgLines) {
