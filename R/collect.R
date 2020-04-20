@@ -44,7 +44,10 @@ utils::globalVariables(.NEWS_LOCS)
 #'     but may differ.
 #'
 #' @param render logical(1) Whether to produce an HTML document for viewing
-#'     (default FALSE)
+#'     (default: TRUE)
+#'
+#' @param rawHTML logical(1) Whether to return the raw HTML text when
+#'     `render = TRUE` (default: FALSE)
 #'
 #' @examples
 #'
@@ -52,7 +55,8 @@ utils::globalVariables(.NEWS_LOCS)
 #'
 #' @export
 collect <-
-    function(packages, vpattern = "Changes in version", render = FALSE)
+    function(packages, vpattern = "Changes in version", render = TRUE,
+        rawHTML = FALSE)
 {
     packages <- setNames(packages, packages)
     listNEWS <- lapply(packages, function(pkg) {
@@ -79,15 +83,20 @@ collect <-
 
     if (render) {
         mdfile <- tempfile(fileext = ".md")
+        htmlfile <- tempfile(fileext = ".html")
         writeLines(text = newsfeed, con = mdfile)
         if (!requireNamespace("rmarkdown", quietly = TRUE))
             stop("Install 'rmarkdown' to use 'render=TRUE'")
-        htmlfile <- rmarkdown::render(mdfile, quiet = TRUE, encoding = "UTF-8")
-        browseURL(htmlfile)
+        newspage <- rmarkdown::render(mdfile, output_file = htmlfile,
+            output_format = rmarkdown::html_fragment(self_contained = FALSE),
+            quiet = TRUE, encoding = "UTF-8")
+        browseURL(newspage)
+        if (rawHTML)
+            return(htmlfile)
     }
-
-    if (!requireNamespace("clipr", quietly = TRUE) || !clipr::clipr_available())
-        newsfeed
-    else
+    if (requireNamespace("clipr", quietly=TRUE) && clipr::clipr_available()) {
+        message("News copied to clipboard")
         clipr::write_clip(newsfeed)
+    }
+    newsfeed
 }

@@ -4,7 +4,12 @@
 \alias{collect}
 \title{Compile NEWS files from several packages}
 \usage{
-collect(packages, vpattern = "Changes in version", render = FALSE)
+collect(
+  packages,
+  vpattern = "Changes in version",
+  render = FALSE,
+  rawHTML = FALSE
+)
 }
 \arguments{
 \item{packages}{character() A vector of packages with NEWS files}
@@ -14,7 +19,10 @@ line in the NEWS files. This usually starts with 'Changes in version'
 but may differ.}
 
 \item{render}{logical(1) Whether to produce an HTML document for viewing
-(default FALSE)}
+(default TRUE)}
+
+\item{rawHTML}{logical(1) Whether to return the raw HTML text when
+`render = TRUE`}
 }
 \description{
 This package will take the first chunk of a NEWS file and

@@ -1,0 +1,65 @@
+---
+title: newsfeed
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_knit$set(
+  root.dir = file.path(Sys.getenv("HOME"), "github")
+)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE,
+  out.width = "100%"
+)
+options(tibble.print_min = 5, tibble.print_max = 5)
+```
+
+Compile NEWS files from several packages
+
+## Install and load
+
+```{r,include=TRUE,results="hide",message=FALSE,warning=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+if (!requireNamespace("newsfeed", quietly = TRUE))
+    BiocManager::install("waldronlab/newsfeed")
+
+library(newsfeed)
+```
+
+## Optional packages
+
+* clipr - allows the user to send the collection of NEWS files to the clipboard
+* rmarkdown - when `render = TRUE` in `collect`, the package will show an HTML
+page of NEWS updates
+
+## Moving to the base packages directory
+
+Users should move one level up from the package directory to be able
+to find the NEWS files in the package:
+
+```{r,eval=FALSE}
+setwd("..")
+```
+
+In this case, when compiling the `Rmd` file, I move one level up.
+
+## Compiling NEWS files
+
+```{r}
+collect("newsfeed", render = FALSE)
+```
+
+## Reading the NEWS
+
+Here is how the NEWS collection would look if all NEWS files were written
+in `NEWS.md` format:
+
+```{r,results="asis",echo=FALSE}
+cat(readLines(
+    collect("newsfeed", render = TRUE, raw = TRUE)
+))
+```
