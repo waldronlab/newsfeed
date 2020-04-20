@@ -7,7 +7,7 @@
 collect(
   packages,
   vpattern = "Changes in version",
-  render = FALSE,
+  render = TRUE,
   rawHTML = FALSE
 )
 }
@@ -19,10 +19,10 @@ line in the NEWS files. This usually starts with 'Changes in version'
 but may differ.}
 
 \item{render}{logical(1) Whether to produce an HTML document for viewing
-(default TRUE)}
+(default: TRUE)}
 
 \item{rawHTML}{logical(1) Whether to return the raw HTML text when
-`render = TRUE`}
+`render = TRUE` (default: FALSE)}
 }
 \description{
 This package will take the first chunk of a NEWS file and
