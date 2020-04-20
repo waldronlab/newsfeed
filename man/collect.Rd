@@ -32,6 +32,8 @@ The NEWS file location can be in one of four locations relative
          \item{"inst/NEWS.md"}
          \item{"inst/NEWS.Rd"}
     }
+   Obtained from Bioconductor NEWS guidelines:
+   \url{https://www.bioconductor.org/developers/package-guidelines/#news}
 }
 \examples{
 

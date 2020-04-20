@@ -34,6 +34,8 @@ utils::globalVariables(.NEWS_LOCS)
 #'          \item{"inst/NEWS.md"}
 #'          \item{"inst/NEWS.Rd"}
 #'     }
+#'    Obtained from Bioconductor NEWS guidelines:
+#'    \url{https://www.bioconductor.org/developers/package-guidelines/#news}
 #'
 #' @param packages character() A vector of packages with NEWS files
 #'
