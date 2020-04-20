@@ -1,13 +1,17 @@
+.NEWS_LOCS <- c("inst/NEWS", "NEWS.md", "inst/NEWS.Rd", "NEWS", "inst/NEWS.md")
+
+utils::globalVariables(.NEWS_LOCS)
+
 .findNEWSfile <- function(pkg) {
-    pkgLoc <- system.file(package = pkg)
-    newsfile <- list.files(pkgLoc, pattern = "^NEWS", recursive = TRUE,
-        full.names = TRUE)
-    if (length(newsfile) > 1)
+    dpkg <- devtools::as.package(pkg)
+    npaths <- file.path(dpkg[["path"]], .NEWS_LOCS)
+    newlo <- file.exists(npaths)
+    if (sum(newlo) > 1)
             stop("Multiple NEWS files found in package folder")
-    newsfile
+    npaths[newlo]
 }
 
-.checkPkgName <- function(pkg, newstext) {
+.checkPkgInNews <- function(pkg, newstext) {
     in_first_line <- grepl(pkg, newstext[1])
     if (in_first_line)
         stop("The NEWS* file should not contain the package name;",
@@ -17,12 +21,25 @@
 #' Compile NEWS files from several packages
 #'
 #' This package will take the first chunk of a NEWS file and
-#' return it as a character vector
+#' return it as a character vector. Users should call this function within
+#' a folder *above* all of the packages in the 'packages' argument. This will
+#' ensure that the proper NEWS path is obtained.
 #'
-#' @param packages A character vector of packages installed on the system
+#' @details The NEWS file location can be in one of four locations relative
+#'    to the package directory:
+#'     \itemize{
+#'          \item{"NEWS.md"}
+#'          \item{"NEWS"}
+#'          \item{"inst/NEWS"}
+#'          \item{"inst/NEWS.md"}
+#'          \item{"inst/NEWS.Rd"}
+#'     }
 #'
-#' @param vpattern The 'grep' input for searching the versioning line in the
-#'     NEWS files. This usually starts with 'Changes in version' but may differ.
+#' @param packages character() A vector of packages with NEWS files
+#'
+#' @param vpattern character(1) The 'grep' input for searching the versioning
+#'     line in the NEWS files. This usually starts with 'Changes in version'
+#'     but may differ.
 #'
 #' @param render logical(1) Whether to produce an HTML document for viewing
 #'     (default FALSE)
@@ -39,7 +56,7 @@ collect <-
     listNEWS <- lapply(packages, function(pkg) {
         nloc <- .findNEWSfile(pkg)
         newstext <- readLines(nloc)
-        .checkPkgName(pkg, newstext)
+        .checkPkgInNews(pkg, newstext)
         c(pkg, paste0(rep("-", 64), collapse = ""), "", newstext, "")
     })
 

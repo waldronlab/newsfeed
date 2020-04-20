@@ -7,29 +7,32 @@
 #' be converted to a markdown file. Current files
 #' should have markdown syntax in the NEWS file.
 #'
-#' @param newsfile character(1) The location of the NEWS file usually in
-#'     'inst/NEWS' (default)
+#' @param pkg character(1) The directory location of the package usually the
+#'     current directory (default: ".")
+#'
 #' @param overwite logical(1) Whether to overwrite the existing NEWS.md file
 #'     (default: FALSE)
 #'
 #' @return Saves a file with the name "NEWS.md" in the package directory
 #'
 #' @export
-makeNEWSmd <- function(newsfile = "inst/NEWS", overwrite = FALSE) {
-    if (file.exists("NEWS.md") && !overwrite) {
-        stop("NEWS.md file exists")
+makeNEWSmd <- function(pkg = ".", overwrite = FALSE) {
+    newsfile <- .findNEWSfile(pkg)
+    if (length(newsfile) && !overwrite) {
+        stop("NEWS file exists: ", newsfile)
     } else {
-        pkg <- devtools::as.package(".")[["package"]]
-        newslines <- readLines(newsfile)
-        .checkPkgName(pkg, newslines)
+        pkg <- dpkg[["package"]]
+        newslines <- readLines(filepath(pkg[["path"]], newsfile))
+        .checkPkgInNews(pkg, newslines)
         writeLines(newslines, "NEWS.md")
         resp <- readline(
-            paste0("Remove old news file at '", newsfile, "'? [y/n]: ")
+            paste0("Remove old news file, '", newsfile, "'? [y/n]: ")
         )
         resp <- substr(tolower(resp), 1, 1)
         if (identical(resp, "y"))
             file.remove(newsfile)
-        ignoredNews <- grepl("NEWS", readLines(".Rbuildignore"))
+        ignoredNews <- grepl("NEWS", readLines(".Rbuildignore"),
+            ignore.case = TRUE)
         if (ignoredNews)
             warning("Remove NEWS* file from '.Rbuildignore'")
     }

@@ -4,11 +4,11 @@
 \alias{makeNEWSmd}
 \title{Create a NEWS.md file from NEWS file}
 \usage{
-makeNEWSmd(newsfile = "inst/NEWS", overwrite = FALSE)
+makeNEWSmd(pkg = ".", overwrite = FALSE)
 }
 \arguments{
-\item{newsfile}{character(1) The location of the NEWS file usually in
-'inst/NEWS' (default)}
+\item{pkg}{character(1) The directory location of the package usually the
+current directory (default: ".")}
 
 \item{overwite}{logical(1) Whether to overwrite the existing NEWS.md file
 (default: FALSE)}
