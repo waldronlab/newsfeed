@@ -21,6 +21,7 @@ makeNEWSmd <- function(pkg = ".", overwrite = FALSE) {
     if (length(newsfile) && !overwrite) {
         stop("NEWS file exists: ", newsfile)
     } else {
+        dpkg <- devtools::as.package(pkg)
         pkg <- dpkg[["package"]]
         newslines <- readLines(filepath(pkg[["path"]], newsfile))
         .checkPkgInNews(pkg, newslines)
