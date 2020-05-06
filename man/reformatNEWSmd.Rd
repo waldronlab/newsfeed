@@ -4,7 +4,7 @@
 \alias{reformatNEWSmd}
 \title{Convert a NEWS file to work with pkgdown}
 \usage{
-reformatNEWSmd(pkg, backup = ".bak")
+reformatNEWSmd(pkg = ".", backup = ".bak")
 }
 \arguments{
 \item{pkg}{character(1) The directory location of the package usually the
