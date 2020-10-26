@@ -46,5 +46,11 @@ The NEWS file location can be in one of four locations relative
 \examples{
 
 collect("newsfeed")
-
+\dontrun{
+    collect(
+        c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
+        "cBioPortalData", "SingleCellMultiModal", "HCAMatrixBrowser",
+        "RTCGAToolbox", "RaggedExperiment")
+    )
+}
 }

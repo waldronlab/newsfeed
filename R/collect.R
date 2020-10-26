@@ -14,8 +14,12 @@ utils::globalVariables(.NEWS_LOCS)
 .checkPkgInNews <- function(pkg, newstext) {
     in_first_line <- grepl(pkg, newstext[1])
     if (in_first_line)
-        stop("The NEWS* file should not contain the package name;",
-            "\n Test package with 'utils::news'")
+        stop("Package name in the NEWS* file not yet supported: ", pkg,
+            "\n Use 'renameHeadings' to standardize")
+}
+
+.replaceAt <- function(newstext) {
+    gsub("@", "\\@", newstext, fixed = TRUE)
 }
 
 #' Compile NEWS files from several packages
@@ -52,7 +56,13 @@ utils::globalVariables(.NEWS_LOCS)
 #' @examples
 #'
 #' collect("newsfeed")
-#'
+#' \dontrun{
+#'     collect(
+#'         c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
+#'         "cBioPortalData", "SingleCellMultiModal", "HCAMatrixBrowser",
+#'         "RTCGAToolbox", "RaggedExperiment")
+#'     )
+#' }
 #' @export
 collect <-
     function(packages, vpattern = "Changes in version", render = TRUE,
@@ -63,7 +73,8 @@ collect <-
         nloc <- .findNEWSfile(pkg)
         newstext <- readLines(nloc)
         .checkPkgInNews(pkg, newstext)
-        c(pkg, paste0(rep("-", 64), collapse = ""), "", newstext, "")
+        newstext <- .replaceAt(newstext)
+        c(paste0("# ", pkg), "", newstext, "")
     })
 
     indx <- lapply(listNEWS, function(pkgLines) {

@@ -26,7 +26,7 @@ reformatNEWSmd <- function(pkg = ".", backup = ".bak") {
     pkg <- dpkg[["package"]]
     newslines <- readLines(newsfile)
 
-    file.rename("NEWS.md", "NEWS.md.bak")
+    file.rename("NEWS.md", paste0("NEWS.md", backup))
     newslines <- gsub("# Changes in version", paste0(" ", pkg), newslines,
         ignore.case = TRUE)
     newslines <- gsub("# New features", " New features", newslines, fixed = TRUE)

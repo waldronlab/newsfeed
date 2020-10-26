@@ -3,3 +3,4 @@
 export(collect)
 export(makeNEWSmd)
 export(reformatNEWSmd)
+export(renameHeadings)
