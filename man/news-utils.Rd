@@ -33,7 +33,9 @@ by one (usually '##' to '###'; default TRUE)}
 (default '##' aka HTML tag 'h2')}
 }
 \description{
-Utilities for manipulating NEWS.md headers
+We provide several utilties for working with Markdown-style
+NEWS.md files. Such operations include the manipulation of NEWS.md file
+headers and header case.
 }
 \section{Headings}{
 
@@ -41,6 +43,14 @@ Obtain the NEWS file Markdown headings ('##') for a list of packages
 with \code{pkgHeadings} which calls \code{headingsFormat} recursively.
 It is useful to see whether there is consistency in the headings
 corresponding to the 'Changes in version' line in the NEWS.md file
+
+\code{headerCase} uses the \code{vpattern} input to replace any differently
+formatted NEWS.md heading, e.g. \verb{CHANGES IN VERSION} to
+\verb{Changes in version} where the differences are by case only.
+
+\code{updateHeading} Increases the Markdown HTML h1 tags to h2 tags with the
+option (\code{bumpHeaders = TRUE}) to bump all the headers for the remaining
+sub-headers in order to maintain hierarchy, e.g., h2 to h3.
 }
 
 \examples{

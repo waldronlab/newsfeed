@@ -4,6 +4,10 @@
 #'
 #' @title Utilities for manipulating NEWS.md headers
 #'
+#' @description We provide several utilties for working with Markdown-style
+#' NEWS.md files. Such operations include the manipulation of NEWS.md file
+#' headers and header case.
+#'
 #' @param packages character() A vector of package names that correspond
 #'     to folders in the current directory.
 #'
@@ -27,10 +31,18 @@
 #'     (default '##' aka HTML tag 'h2')
 #'
 #' @section Headings:
-#'     Obtain the NEWS file Markdown headings ('##') for a list of packages
-#'     with `pkgHeadings` which calls `headingsFormat` recursively.
-#'     It is useful to see whether there is consistency in the headings
-#'     corresponding to the 'Changes in version' line in the NEWS.md file
+#' Obtain the NEWS file Markdown headings ('##') for a list of packages
+#' with `pkgHeadings` which calls `headingsFormat` recursively.
+#' It is useful to see whether there is consistency in the headings
+#' corresponding to the 'Changes in version' line in the NEWS.md file
+#'
+#' `headerCase` uses the `vpattern` input to replace any differently
+#' formatted NEWS.md heading, e.g. `CHANGES IN VERSION` to
+#' `Changes in version` where the differences are by case only.
+#'
+#' `updateHeading` Increases the Markdown HTML h1 tags to h2 tags with the
+#' option (`bumpHeaders = TRUE`) to bump all the headers for the remaining
+#' sub-headers in order to maintain hierarchy, e.g., h2 to h3.
 #'
 #' @md
 #'
