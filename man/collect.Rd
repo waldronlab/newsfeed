@@ -49,8 +49,8 @@ collect("newsfeed")
 \dontrun{
     collect(
         c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
-        "cBioPortalData", "SingleCellMultiModal", "HCAMatrixBrowser",
-        "RTCGAToolbox", "RaggedExperiment")
+        "cBioPortalData", "SingleCellMultiModal", "RTCGAToolbox",
+        "RaggedExperiment")
     )
 }
 }

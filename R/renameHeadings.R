@@ -30,7 +30,7 @@
 #' readLines(tempNews)
 #'
 #' @export
-renameHeadings <- function(pkg, backup = ".bak") {
+renameHeadings <- function(pkg, dry.run = TRUE) {
     if (missing(pkg))
         stop("Provide a valid package name and directory: 'pkg'")
     newsfile <- .findNEWSfile(pkg)
@@ -41,6 +41,9 @@ renameHeadings <- function(pkg, backup = ".bak") {
         "\\1 Changes in version \\3",
         newslines
     )
-    writeLines(newslines, newsfile)
+    if (dry.run)
+        newslines
+    else
+        writeLines(newslines, con = file(newsfile))
 }
 

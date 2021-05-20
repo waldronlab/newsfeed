@@ -33,3 +33,4 @@ reformatNEWSmd <- function(pkg = ".", backup = ".bak") {
     newslines <- gsub("# Bug", " Bug", newslines, fixed = TRUE)
     writeLines(newslines, "NEWS.md")
 }
+
