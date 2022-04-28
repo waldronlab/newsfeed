@@ -3,7 +3,7 @@
 export(collect)
 export(headerCase)
 export(headingsFormat)
-export(makeNEWSmd)
 export(reformat)
 export(rename)
+export(translate)
 export(updateHeading)

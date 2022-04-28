@@ -16,7 +16,7 @@
 #' @return Saves a file with the name "NEWS.md" in the package directory
 #'
 #' @export
-makeNEWSmd <- function(pkg = ".", overwrite = FALSE) {
+translate <- function(pkg = ".", overwrite = FALSE) {
     newsfile <- .findNEWSfile(pkg)
     if (length(newsfile) && !overwrite) {
         stop("NEWS file exists: ", newsfile)
