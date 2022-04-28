@@ -8,7 +8,7 @@
 #' By default, the function saves a `*.bak` backup NEWS file in the package
 #' directory.
 #'
-#' @inheritParams reformatNEWSmd
+#' @inheritParams reformat
 #'
 #' @return Saves a "NEWS.md" file with substituted headers
 #'

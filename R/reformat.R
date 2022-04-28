@@ -20,7 +20,7 @@
 #' @return Saves a "NEWS.md" file with alternative format
 #'
 #' @export
-reformatNEWSmd <- function(pkg = ".", backup = ".bak") {
+reformat <- function(pkg = ".", backup = ".bak") {
     newsfile <- .findNEWSfile(pkg)
     dpkg <- devtools::as.package(pkg)
     pkg <- dpkg[["package"]]
