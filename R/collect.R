@@ -15,7 +15,7 @@ utils::globalVariables(.NEWS_LOCS)
     in_first_line <- grepl(pkg, newstext[1])
     if (in_first_line)
         stop("Package name in the NEWS* file not yet supported: ", pkg,
-            "\n Use 'renameHeadings' to standardize")
+            "\n Use 'rename' to standardize")
 }
 
 .replaceAt <- function(newstext) {

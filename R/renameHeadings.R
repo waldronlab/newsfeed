@@ -26,11 +26,11 @@
 #'
 #' tempNews <- file.path(tempdir(), "NEWS.md")
 #' writeLines("# TempPackage 0.99.0", con = file(tempNews))
-#' renameHeadings(pkg = tempdir())
+#' rename(pkg = tempdir())
 #' readLines(tempNews)
 #'
 #' @export
-renameHeadings <- function(pkg, backup = ".bak", dry.run = TRUE) {
+rename <- function(pkg, backup = ".bak", dry.run = TRUE) {
     if (missing(pkg))
         stop("Provide a valid package name and directory: 'pkg'")
 
