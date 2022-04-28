@@ -30,20 +30,31 @@
 #' readLines(tempNews)
 #'
 #' @export
-renameHeadings <- function(pkg, dry.run = TRUE) {
+renameHeadings <- function(pkg, backup = ".bak", dry.run = TRUE) {
     if (missing(pkg))
         stop("Provide a valid package name and directory: 'pkg'")
+
     newsfile <- .findNEWSfile(pkg)
     newslines <- readLines(newsfile)
     file.copy(newsfile, paste0(newsfile, backup))
-    newslines <- gsub(
+    upnews <- gsub(
         "(^\\#+)(.*)([0-9].[0-9]{1,2}.[0-9]+)",
         "\\1 Changes in version \\3",
         newslines
     )
-    if (dry.run)
-        newslines
+    if (identical(newslines, upnews))
+        stop(basename(newsfile), " already in the correct format")
+
+    msg <- if (dry.run)
+        "NEWS file not changed: set 'dry.run=FALSE'"
     else
-        writeLines(newslines, con = file(newsfile))
+        paste0("Writing NEWS file with backup at ", backup)
+
+    message(msg)
+    if (!dry.run) {
+        writeLines(upnews, newsfile)
+    }
+
+    newslines
 }
 
