@@ -69,28 +69,12 @@ collect <-
         rawHTML = FALSE)
 {
     packages <- setNames(packages, packages)
-    listNEWS <- lapply(packages, function(pkg) {
-        nloc <- .findNEWSfile(pkg)
-        newstext <- readLines(nloc)
-        .checkPkgInNews(pkg, newstext)
-        newstext <- .replaceAt(newstext)
-        c(paste0("# ", pkg), "", newstext, "")
-    })
+    newest <- vapply(
+        packages, function(x) suppressWarnings(validate(x)), logical(1L)
+    )
+    packages <- packages[newest]
 
-    indx <- lapply(listNEWS, function(pkgLines) {
-        vers <-
-            head(
-                grep(vpattern, ignore.case = TRUE, pkgLines),
-            2L)
-        if (identical(length(vers), 1L))
-            length(pkgLines)
-        else
-            vers[[2L]] - 1L
-    })
-
-    newsfeed <-  unname(unlist(
-        Map(function(x, y) x[seq_len(y)], x = listNEWS, y = indx)
-    ))
+    newsfeed <- lapply(packages, extract, vpattern = vpattern)
 
     if (render) {
         mdfile <- tempfile(fileext = ".md")
