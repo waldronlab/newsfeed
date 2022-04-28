@@ -75,6 +75,7 @@ collect <-
     packages <- packages[newest]
 
     newsfeed <- lapply(packages, extract, vpattern = vpattern)
+    newsfeed <- unname(unlist(newsfeed))
 
     if (render) {
         mdfile <- tempfile(fileext = ".md")

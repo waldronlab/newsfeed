@@ -30,16 +30,15 @@ validate <- function(pkg, vpattern = "Changes in version") {
     newsver <- package_version(trimws(newsver))
     news_y_ver <- newsver[, 2]
 
-    valid <- FALSE
-    if (news_y_ver == pkg_y_ver - diffeven)
-        valid <- TRUE
-    else if (news_y_ver == pkg_y_ver - (diffeven + 1)) {
+    if (news_y_ver == pkg_y_ver - diffeven) {
+        TRUE
+    } else if (news_y_ver == pkg_y_ver - (diffeven + 1)) {
         warning("Use future Bioconductor release version in the NEWS header")
-        valid <- TRUE
-    } else
+        TRUE
+    } else {
         warning("NEWS version not up-to-date with current package version")
-
-    valid
+        FALSE
+    }
 }
 
 #' Obtain only the top part of the NEWS file
