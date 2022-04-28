@@ -47,10 +47,10 @@ The NEWS file location can be in one of four locations relative
 
 collect("newsfeed")
 \dontrun{
-    collect(
-        c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
+    pkgs <- c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
         "cBioPortalData", "SingleCellMultiModal", "RTCGAToolbox",
-        "RaggedExperiment")
-    )
+        "RaggedExperiment", "terraTCGAdata", "BiocBaseUtils")
+    stopifnot(all(dir.exists(pkgs)))
+    collect(pkgs)
 }
 }
