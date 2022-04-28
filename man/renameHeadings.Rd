@@ -4,11 +4,14 @@
 \alias{renameHeadings}
 \title{Change the NEWS.md file headings}
 \usage{
-renameHeadings(pkg, dry.run = TRUE)
+renameHeadings(pkg, backup = ".bak", dry.run = TRUE)
 }
 \arguments{
 \item{pkg}{character(1) The directory location of the package usually the
 current directory (default: ".")}
+
+\item{backup}{character(1) The file extension to add for backing up the
+original news file (default: '.bak')}
 }
 \value{
 Saves a "NEWS.md" file with substituted headers
