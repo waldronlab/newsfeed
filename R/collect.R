@@ -57,11 +57,11 @@ utils::globalVariables(.NEWS_LOCS)
 #'
 #' collect("newsfeed")
 #' \dontrun{
-#'     collect(
-#'         c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
+#'     pkgs <- c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
 #'         "cBioPortalData", "SingleCellMultiModal", "RTCGAToolbox",
-#'         "RaggedExperiment")
-#'     )
+#'         "RaggedExperiment", "terraTCGAdata", "BiocBaseUtils")
+#'     stopifnot(all(dir.exists(pkgs)))
+#'     collect(pkgs)
 #' }
 #' @export
 collect <-
