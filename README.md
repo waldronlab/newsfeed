@@ -47,7 +47,7 @@ collect("newsfeed", render = FALSE)
 #>  [8] "* Restricts to only one `NEWS` file per package"                           
 #>  [9] "* `collect` function allows the extraction of the latest news for an"      
 #> [10] "installed package"                                                         
-#> [11] "* `makeNEWSmd` convenience function moves plain `NEWS` files to `NEWS.md`" 
+#> [11] "* `translate` convenience function moves plain `NEWS` files to `NEWS.md`" 
 #> [12] ""                                                                          
 #> [13] "### Bug fixes and minor improvements"                                      
 #> [14] ""                                                                          
@@ -105,7 +105,7 @@ for an installed package
 
 <li>
 
-<code>makeNEWSmd</code> convenience function moves plain
+<code>translate</code> convenience function moves plain
 <code>NEWS</code> files to <code>NEWS.md</code>
 
 </li>

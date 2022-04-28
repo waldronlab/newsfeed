@@ -7,6 +7,9 @@
 reformat(pkg = ".", backup = ".bak")
 }
 \arguments{
+\item{pkg}{character(1) The directory location of the package usually the
+current directory (default: ".")}
+
 \item{backup}{character(1) The file extension to add for backing up the
 original news file (default: '.bak')}
 }

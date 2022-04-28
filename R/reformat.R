@@ -12,7 +12,7 @@
 #' operation is performed on these headings (if the heading had two hashtags
 #' 'h2', they are now converted to one hashtag 'h1').
 #'
-#' @inheritParams makeNEWSmd
+#' @inheritParams translate
 #'
 #' @param backup character(1) The file extension to add for backing up the
 #'     original news file (default: '.bak')
