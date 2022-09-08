@@ -6,8 +6,8 @@ utils::globalVariables(.NEWS_LOCS)
     dpkg <- devtools::as.package(pkg)
     npaths <- file.path(dpkg[["path"]], .NEWS_LOCS)
     newlo <- file.exists(npaths)
-    if (sum(newlo) > 1)
-            stop("Multiple NEWS files found in package folder")
+    if (sum(newlo) > 1 || sum(newlo) < 1)
+            stop("None or multiple NEWS files found in the package folder")
     npaths[newlo]
 }
 
