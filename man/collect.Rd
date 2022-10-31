@@ -49,7 +49,7 @@ collect("newsfeed")
 \dontrun{
     pkgs <- c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
         "cBioPortalData", "SingleCellMultiModal", "RTCGAToolbox",
-        "RaggedExperiment", "terraTCGAdata", "BiocBaseUtils")
+        "RaggedExperiment", "terraTCGAdata", "BiocBaseUtils", "TENxIO")
     stopifnot(all(dir.exists(pkgs)))
     collect(pkgs)
 }
