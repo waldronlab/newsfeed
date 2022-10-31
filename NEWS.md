@@ -6,6 +6,7 @@
 * `collect` function allows the extraction of the latest news for an
 installed package
 * `translate` convenience function moves plain `NEWS` files to `NEWS.md`
+* `validate` provides a way to diagnose versioning issues in `NEWS` files
 
 ### Bug fixes and minor improvements
 
