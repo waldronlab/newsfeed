@@ -20,23 +20,33 @@ validate <- function(pkg, vpattern = "Changes in version") {
     pkg_ver <- package_version(read.dcf(desc, "Version"))
     pkg_y_ver <- as.numeric(pkg_ver[, 2])
     diffeven <- pkg_y_ver %% 2
+    if (!diffeven)
+        stop("Update the NEWS file on the devel version of the package")
     ## handle special case of packages just before release
     if (pkg_y_ver == 99)
-        pkg_y_ver <- 2
+        pkg_y_ver <- -1
 
     newsind <- grep(vpattern, ignore.case = TRUE, newslines)
+    if (!length(newsind))
+        stop("Version pattern input not found in NEWS file")
     versionheader <- newslines[newsind[1L]]
     newsver <- vapply(strsplit(versionheader, vpattern), `[`, character(1L), 2L)
     newsver <- package_version(trimws(newsver))
     news_y_ver <- newsver[, 2]
 
-    if (news_y_ver == pkg_y_ver - diffeven) {
+    if (news_y_ver == pkg_y_ver + diffeven) {
         TRUE
-    } else if (news_y_ver == pkg_y_ver - (diffeven + 1)) {
-        warning("Use future Bioconductor release version in the NEWS header")
+    } else if (news_y_ver == pkg_y_ver) {
+        warning(
+            "Use future Bioconductor release version in the NEWS header",
+            call. = FALSE
+        )
         TRUE
-    } else {
-        warning("NEWS version not up-to-date with current package version")
+    } else if (news_y_ver < pkg_y_ver) {
+        warning(
+            "NEWS version not up-to-date with current package version",
+            call. = FALSE
+        )
         FALSE
     }
 }
