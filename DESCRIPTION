@@ -10,4 +10,4 @@ Imports: devtools
 Suggests: clipr
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
