@@ -13,6 +13,7 @@
 #'
 #' @export
 validate <- function(pkg, vpattern = "Changes in version") {
+    message("Validating ", pkg, "...")
     newsfile <- .findNEWSfile(pkg)
     newslines <- readLines(newsfile)
     desc <- file.path(pkg, "DESCRIPTION")

@@ -1,7 +1,5 @@
 .NEWS_LOCS <- c("inst/NEWS", "NEWS.md", "inst/NEWS.Rd", "NEWS", "inst/NEWS.md")
 
-utils::globalVariables(.NEWS_LOCS)
-
 .findNEWSfile <- function(pkg) {
     dpkg <- devtools::as.package(pkg)
     npaths <- file.path(dpkg[["path"]], .NEWS_LOCS)
@@ -57,17 +55,19 @@ utils::globalVariables(.NEWS_LOCS)
 #'
 #' collect("newsfeed")
 #' \dontrun{
-#'     pkgs <- c("MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
+#'     pkgs <- c(
+#'         "MultiAssayExperiment", "curatedTCGAData", "TCGAutils",
 #'         "cBioPortalData", "SingleCellMultiModal", "RTCGAToolbox",
-#'         "RaggedExperiment", "terraTCGAdata", "BiocBaseUtils", "TENxIO")
+#'         "RaggedExperiment", "terraTCGAdata", "BiocBaseUtils", "TENxIO",
+#'         "BiocHubsShiny"
+#'     )
 #'     stopifnot(all(dir.exists(pkgs)))
 #'     collect(pkgs)
 #' }
 #' @export
-collect <-
-    function(packages, vpattern = "Changes in version", render = TRUE,
-        rawHTML = FALSE)
-{
+collect <- function(
+    packages, vpattern = "Changes in version", render = TRUE, rawHTML = FALSE
+) {
     packages <- setNames(packages, packages)
     newest <- vapply(
         packages, function(x) suppressWarnings(validate(x)), logical(1L)
