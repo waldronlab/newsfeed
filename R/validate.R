@@ -31,7 +31,10 @@ validate <- function(pkg, vpattern = "Changes in version") {
     if (!length(newsind))
         stop("Version pattern input not found in NEWS file")
     versionheader <- newslines[newsind[1L]]
-    newsver <- vapply(strsplit(versionheader, vpattern), `[`, character(1L), 2L)
+    newsver <- vapply(
+        strsplit(tolower(versionheader), tolower(vpattern)),
+        `[`, character(1L), 2L
+    )
     newsver <- package_version(trimws(newsver))
     news_y_ver <- newsver[, 2]
 
