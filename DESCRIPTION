@@ -8,6 +8,7 @@ Description: The package takes NEWS files from other packages and puts them
 Depends: R (>= 3.6.0)
 Imports: devtools
 Suggests: clipr
+URL: https://link-ny.r-universe.dev/newsfeed
 License: Artistic-2.0
 Encoding: UTF-8
 RoxygenNote: 7.2.3
